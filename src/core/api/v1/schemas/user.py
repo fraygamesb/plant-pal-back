@@ -1,13 +1,14 @@
 import uuid
 from datetime import datetime
 
-from pydantic import BaseModel, EmailStr
+from annotated_types import MinLen, MaxLen
+from pydantic import BaseModel, EmailStr, Field
+from typing import Annotated
 
 
 class UserBaseSchema(BaseModel):
-    name: str
+    name: Annotated[str, MinLen(3), MaxLen(20)]
     email: EmailStr
-    created_at: datetime = datetime.now()
     # phone_number: str
 
 
@@ -25,3 +26,8 @@ class UserUpdateRequestSchema(BaseModel):
 class UserResponseSchema(UserBaseSchema):
     id: uuid.UUID
     is_active: bool
+
+
+class UserLoginRequestSchema(BaseModel):
+    email: EmailStr
+    password: str

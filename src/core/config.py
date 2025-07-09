@@ -1,19 +1,19 @@
 from pathlib import Path
 
-from pydantic import SecretStr, PostgresDsn, BaseModel
+from pydantic import SecretStr, PostgresDsn, BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import os
 from src.core.api.v1.schemas.jwt import AuthJWT
 
 
 class DBSettings(BaseSettings):
-    db_name: str
-    db_user: str
-    db_password: SecretStr
-    db_host: str
-    db_port: int
-    db_echo: bool
-    db_url: PostgresDsn | None = None
+    POSTGRES_DB_NAME: str
+    POSTGRES_DB_USER: str
+    POSTGRES_DB_PASSWORD: SecretStr
+    POSTGRES_DB_HOST: str
+    POSTGRES_DB_PORT: int
+    POSTGRES_DB_ECHO: bool
+    POSTGRES_DB_URL: PostgresDsn | None = None
 
     model_config = SettingsConfigDict(
         env_file=os.path.join(
@@ -26,21 +26,20 @@ class DBSettings(BaseSettings):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        if not self.db_url:
-            self.db_url = PostgresDsn.build(
+        if not self.POSTGRES_DB_URL:
+            self.POSTGRES_DB_URL = PostgresDsn.build(
                 scheme="postgresql+asyncpg",
-                username=self.db_user,
-                password=self.db_password.get_secret_value(),
-                host=self.db_host,
-                port=self.db_port,
-                path=self.db_name,
+                username=self.POSTGRES_DB_USER,
+                password=self.POSTGRES_DB_PASSWORD.get_secret_value(),
+                host=self.POSTGRES_DB_HOST,
+                port=self.POSTGRES_DB_PORT,
+                path=self.POSTGRES_DB_NAME,
             )
 
 
 class Settings(BaseSettings):
     db_settings: DBSettings = DBSettings()
-    BASE_DIR: Path = Path(__file__).resolve().parent
-    AuthJWT: AuthJWT = AuthJWT()
+    auth_jwt_settings: AuthJWT = AuthJWT()
 
 
 settings = Settings()

@@ -1,12 +1,12 @@
 import jwt
 
-from core.config import settings
+from src.core.config import settings
 
 
 def encode_jwt(
     payload: dict,
-    private_key: str = settings.AuthJWT.private_key_path.read_text(),
-    algorithm: str = settings.AuthJWT.algorithm,
+    private_key: str = settings.auth_jwt_settings.private_key_path.read_text(),
+    algorithm: str = settings.auth_jwt_settings.algorithm,
 ):
     encoded = jwt.encode(
         payload,
@@ -18,8 +18,8 @@ def encode_jwt(
 
 def decode_jwt(
     token: str | bytes,
-    public_key: str = settings.AuthJWT.public_key_path.read_text(),
-    algorithm: str = settings.AuthJWT.algorithm,
+    public_key: str = settings.auth_jwt_settings.public_key_path.read_text(),
+    algorithm: str = settings.auth_jwt_settings.algorithm,
 ):
     decoded = jwt.decode(
         token,

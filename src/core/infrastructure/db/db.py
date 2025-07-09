@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
 )
 
-from core.config import settings
+from src.core.config import settings
 
 
 class Database:
@@ -22,5 +22,6 @@ class Database:
 
 
 database = Database(
-    url=settings.db_settings.db_url.unicode_string(), echo=settings.db_settings.db_echo
+    url=settings.db_settings.POSTGRES_DB_URL.unicode_string(),
+    echo=settings.db_settings.POSTGRES_DB_ECHO,
 )
