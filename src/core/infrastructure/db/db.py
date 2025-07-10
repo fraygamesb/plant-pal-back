@@ -22,6 +22,6 @@ class Database:
 
 
 database = Database(
-    url=settings.db_settings.POSTGRES_DB_URL.unicode_string(),
-    echo=settings.db_settings.POSTGRES_DB_ECHO,
+    url=settings.POSTGRES_DB_URL.unicode_string(),
+    echo=settings.POSTGRES_DB_ECHO,
 )

@@ -5,8 +5,8 @@ from src.core.config import settings
 
 def encode_jwt(
     payload: dict,
-    private_key: str = settings.auth_jwt_settings.private_key_path.read_text(),
-    algorithm: str = settings.auth_jwt_settings.algorithm,
+    private_key: str = settings.PRIVATE_KEY_PATH.read_text(),
+    algorithm: str = "RS256",
 ):
     encoded = jwt.encode(
         payload,
@@ -18,8 +18,8 @@ def encode_jwt(
 
 def decode_jwt(
     token: str | bytes,
-    public_key: str = settings.auth_jwt_settings.public_key_path.read_text(),
-    algorithm: str = settings.auth_jwt_settings.algorithm,
+    public_key: str = settings.PUBLIC_KEY_PATH.read_text(),
+    algorithm: str = "RS256",
 ):
     decoded = jwt.decode(
         token,

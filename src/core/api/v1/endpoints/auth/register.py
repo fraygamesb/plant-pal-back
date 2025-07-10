@@ -1,13 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID
+
 from src.core.repositories.user import UserRepository
 from src.core.api.v1.schemas.user import (
     UserCreateRequestSchema,
-    UserUpdateRequestSchema,
     UserResponseSchema,
 )
-from src.core.infrastructure.db.db import database
 
 router = APIRouter(prefix="/register", tags=["Регистрация пользователя"])
 

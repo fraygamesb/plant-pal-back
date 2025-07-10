@@ -3,7 +3,6 @@ from fastapi import (
     Depends,
     HTTPException,
 )
-from pydantic import BaseModel
 from starlette import status
 
 from src.core.utils.security import verify_password

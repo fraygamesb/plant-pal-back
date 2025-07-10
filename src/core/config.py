@@ -1,20 +1,11 @@
 from pathlib import Path
 
-from pydantic import SecretStr, PostgresDsn, BaseModel, Field
+from pydantic import SecretStr, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import os
-from src.core.api.v1.schemas.jwt import AuthJWT
 
 
-class DBSettings(BaseSettings):
-    POSTGRES_DB_NAME: str
-    POSTGRES_DB_USER: str
-    POSTGRES_DB_PASSWORD: SecretStr
-    POSTGRES_DB_HOST: str
-    POSTGRES_DB_PORT: int
-    POSTGRES_DB_ECHO: bool
-    POSTGRES_DB_URL: PostgresDsn | None = None
-
+class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
@@ -23,6 +14,23 @@ class DBSettings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+    # AuthJWT
+    PRIVATE_KEY_PATH: Path = (
+        Path(__file__).parent.parent.parent / "certs" / "private.pem"
+    )
+    PUBLIC_KEY_PATH: Path = Path(__file__).parent.parent.parent / "certs" / "public.pem"
+
+    BASE_DIR: Path = Path(__file__).parent
+
+    # PostgreSQL
+    POSTGRES_DB_NAME: str
+    POSTGRES_DB_USER: str
+    POSTGRES_DB_PASSWORD: SecretStr
+    POSTGRES_DB_HOST: str
+    POSTGRES_DB_PORT: int
+    POSTGRES_DB_ECHO: bool
+    POSTGRES_DB_URL: PostgresDsn | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -35,11 +43,6 @@ class DBSettings(BaseSettings):
                 port=self.POSTGRES_DB_PORT,
                 path=self.POSTGRES_DB_NAME,
             )
-
-
-class Settings(BaseSettings):
-    db_settings: DBSettings = DBSettings()
-    auth_jwt_settings: AuthJWT = AuthJWT()
 
 
 settings = Settings()

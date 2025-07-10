@@ -14,7 +14,7 @@ from src.core.config import settings
 config = context.config
 config.set_main_option(
     "sqlalchemy.url",
-    f"postgresql+asyncpg://{settings.db_settings.POSTGRES_DB_USER}:{settings.db_settings.POSTGRES_DB_PASSWORD}@{settings.db_settings.POSTGRES_DB_HOST}:{settings.db_settings.POSTGRES_DB_PORT}/{settings.db_settings.POSTGRES_DB_NAME}",
+    f"postgresql+asyncpg://{settings.POSTGRES_DB_USER}:{settings.POSTGRES_DB_PASSWORD}@{settings.POSTGRES_DB_HOST}:{settings.POSTGRES_DB_PORT}/{settings.POSTGRES_DB_NAME}",
 )
 
 # Interpret the config file for Python logging.

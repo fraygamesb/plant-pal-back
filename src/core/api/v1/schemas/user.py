@@ -1,8 +1,7 @@
 import uuid
-from datetime import datetime
 
 from annotated_types import MinLen, MaxLen
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr
 from typing import Annotated
 
 
