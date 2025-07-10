@@ -14,14 +14,11 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
+    BASE_DIR: Path = Path(__file__).parent
 
     # AuthJWT
-    PRIVATE_KEY_PATH: Path = (
-        Path(__file__).parent.parent.parent / "certs" / "private.pem"
-    )
-    PUBLIC_KEY_PATH: Path = Path(__file__).parent.parent.parent / "certs" / "public.pem"
-
-    BASE_DIR: Path = Path(__file__).parent
+    PRIVATE_KEY_PATH: Path = BASE_DIR.parent.parent / "certs" / "private.pem"
+    PUBLIC_KEY_PATH: Path = BASE_DIR.parent.parent / "certs" / "public.pem"
 
     # PostgreSQL
     POSTGRES_DB_NAME: str
