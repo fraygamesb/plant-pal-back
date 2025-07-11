@@ -24,6 +24,10 @@ class UserRepository:
         result = await self.session.execute(select(User).where(User.email == email))
         return result.scalar_one_or_none()
 
+    async def get_by_username(self, name: str) -> User | None:
+        result = await self.session.execute(select(User).where(User.name == name))
+        return result.scalar_one_or_none()
+
     async def create(self, user: UserCreateRequestSchema) -> User:
         user = User(
             id=uuid.uuid4(),

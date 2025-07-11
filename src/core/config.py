@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     # AuthJWT
     PRIVATE_KEY_PATH: Path = BASE_DIR.parent.parent / "certs" / "private.pem"
     PUBLIC_KEY_PATH: Path = BASE_DIR.parent.parent / "certs" / "public.pem"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 30
 
     # PostgreSQL
     POSTGRES_DB_NAME: str

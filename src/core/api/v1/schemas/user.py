@@ -1,13 +1,13 @@
 import uuid
 
 from annotated_types import MinLen, MaxLen
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Annotated
 
 
 class UserBaseSchema(BaseModel):
     name: Annotated[str, MinLen(3), MaxLen(20)]
-    email: Annotated[str, EmailStr]
+    email: EmailStr
     # phone_number: str
 
 
@@ -27,5 +27,7 @@ class UserResponseSchema(UserBaseSchema):
 
 
 class UserLoginRequestSchema(BaseModel):
-    email: Annotated[str, EmailStr]
+    model_config = ConfigDict(strict=True)
+
+    username: str
     password: str
