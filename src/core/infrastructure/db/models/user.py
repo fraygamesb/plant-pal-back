@@ -13,6 +13,6 @@ class User(Base):
     name: Mapped[str]
     email: Mapped[str]
     password: Mapped[str]
-    is_active: Mapped[bool] = False
+    is_active: Mapped[bool]
     created_at: Mapped[datetime]
     # phone_number: Mapped[str]
