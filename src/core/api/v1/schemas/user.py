@@ -7,7 +7,7 @@ from typing import Annotated
 
 class UserBaseSchema(BaseModel):
     name: Annotated[str, MinLen(3), MaxLen(20)]
-    email: EmailStr
+    email: Annotated[str, EmailStr]
     # phone_number: str
 
 
@@ -24,9 +24,8 @@ class UserUpdateRequestSchema(BaseModel):
 
 class UserResponseSchema(UserBaseSchema):
     id: uuid.UUID
-    is_active: bool
 
 
 class UserLoginRequestSchema(BaseModel):
-    email: EmailStr
+    email: Annotated[str, EmailStr]
     password: str
