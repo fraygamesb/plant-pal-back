@@ -24,6 +24,7 @@ class UserUpdateRequestSchema(BaseModel):
 
 class UserResponseSchema(UserBaseSchema):
     id: uuid.UUID
+    is_active: bool = True
 
 
 class UserLoginRequestSchema(BaseModel):
