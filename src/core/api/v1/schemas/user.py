@@ -30,5 +30,5 @@ class UserResponseSchema(UserBaseSchema):
 class UserLoginRequestSchema(BaseModel):
     model_config = ConfigDict(strict=True)
 
-    username: str
+    name: str
     password: str
