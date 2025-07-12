@@ -42,6 +42,7 @@ def create_access_token(user: UserResponseSchema) -> str:
 def create_refresh_token(user: UserResponseSchema) -> str:
     payload = {
         "sub": str(user.id),
+        "name": user.name,
     }
     return create_jwt(
         token_type=REFRESH_TOKEN_TYPE,
