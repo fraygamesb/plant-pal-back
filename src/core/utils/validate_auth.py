@@ -1,7 +1,8 @@
 from fastapi import Depends, HTTPException, Form
 from starlette import status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
+from src.core.api.v1.schemas.user import UserLoginRequestSchema
 from src.core.utils.jwt_helper import (
     ACCESS_TOKEN_TYPE,
     TOKEN_TYPE_FIELD,
@@ -84,18 +85,17 @@ async def get_current_active_user(
 
 
 async def validate_auth_user(
-    username: str = Form(),
-    password: str = Form(),
+    login_data: UserLoginRequestSchema,
     repo: UserRepository = Depends(),
 ) -> UserResponseSchema:
-    user = await repo.get_by_username(username)
+    user = await repo.get_by_username(login_data.username)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid credentials",
         )
 
-    if not verify_password(password, user.password.encode()):
+    if not verify_password(login_data.password, user.password.encode()):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid credentials",
