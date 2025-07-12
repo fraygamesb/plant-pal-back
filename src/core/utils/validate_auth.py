@@ -41,7 +41,7 @@ def validate_token_type(
     token_type: str,
 ) -> bool:
     current_token_type = payload.get(TOKEN_TYPE_FIELD)
-    if current_token_type != token_type:
+    if current_token_type == token_type:
         return True
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -53,8 +53,8 @@ async def get_user_by_token_sub(
     payload: dict,
     repo: UserRepository = Depends(),
 ) -> UserResponseSchema:
-    username: str = payload.get("name")
-    user = await repo.get_by_username(username)
+    id: str = payload.get("sub")
+    user = await repo.get_by_id(id)
     if user:
         return UserResponseSchema(
             id=user.id,
@@ -98,7 +98,7 @@ async def validate_auth_user(
     login_data: UserLoginRequestSchema,
     repo: UserRepository = Depends(),
 ) -> UserResponseSchema:
-    user = await repo.get_by_username(login_data.username)
+    user = await repo.get_by_name(login_data.name)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
