@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from starlette import status
 
-from src.core.api.v1.schemas.user import UserResponseSchema
-from src.core.utils.validate_auth import get_current_auth_user
-from src.core.utils.validate_auth import validate_auth_user
-from src.core.utils import auth
-from src.core.api.v1.schemas.jwt import TokenInfoSchema
+from core.api.v1.schemas.user import UserResponseSchema
+from core.utils.validate_auth import get_current_auth_user
+from core.utils.validate_auth import validate_auth_user
+from core.utils import auth
+from core.api.v1.schemas.jwt import TokenInfoSchema
 
 
 router = APIRouter(prefix="/user", tags=["auth-jwt"])

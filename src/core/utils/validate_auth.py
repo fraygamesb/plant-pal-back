@@ -2,10 +2,10 @@ from fastapi import Depends, HTTPException, Form
 from starlette import status
 from fastapi.security import OAuth2PasswordBearer
 
-from src.core.api.v1.schemas.user import UserResponseSchema
-from src.core.utils import auth
-from src.core.repositories.user import UserRepository
-from src.core.utils.security import verify_password
+from core.api.v1.schemas.user import UserResponseSchema
+from core.utils import auth
+from core.repositories.user import UserRepository
+from core.utils.security import verify_password
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login/")

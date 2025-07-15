@@ -3,13 +3,13 @@ import uuid
 from fastapi.params import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update, delete
-from src.core.infrastructure.db.models.user import User
-from src.core.infrastructure.db.db import database
-from src.core.api.v1.schemas.user import (
+from core.infrastructure.db.models.user import User
+from core.infrastructure.db.db import database
+from core.api.v1.schemas.user import (
     UserCreateRequestSchema,
     UserUpdateRequestSchema,
 )
-from src.core.utils.security import hash_password
+from core.utils.security import hash_password
 from datetime import datetime
 
 
