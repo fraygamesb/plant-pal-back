@@ -24,10 +24,11 @@ class UserUpdateRequestSchema(BaseModel):
 
 class UserResponseSchema(UserBaseSchema):
     id: uuid.UUID
+    is_active: bool = True
 
 
 class UserLoginRequestSchema(BaseModel):
     model_config = ConfigDict(strict=True)
 
-    username: str
+    name: str
     password: str
