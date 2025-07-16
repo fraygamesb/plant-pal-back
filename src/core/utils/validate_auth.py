@@ -27,15 +27,6 @@ def get_current_token_payload(
     return payload
 
 
-# def get_current_token_payload(
-#     token: str = Depends(oauth2_scheme),
-# ) -> dict:
-#     payload = auth.decode_jwt(
-#         token=token,
-#     )
-#     return payload
-
-
 def validate_token_type(
     payload: dict,
     token_type: str,

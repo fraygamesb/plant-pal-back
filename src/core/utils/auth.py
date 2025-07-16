@@ -2,6 +2,9 @@ import uuid
 from datetime import datetime, timedelta
 
 import jwt
+from fastapi import HTTPException
+from jwt import ExpiredSignatureError
+from starlette import status
 
 from src.core.config import settings
 
@@ -37,9 +40,15 @@ def decode_jwt(
     public_key: str = settings.PUBLIC_KEY_PATH.read_text(),
     algorithm: str = "RS256",
 ):
-    decoded = jwt.decode(
-        token,
-        public_key,
-        algorithms=[algorithm],
-    )
-    return decoded
+    try:
+        decoded = jwt.decode(
+            token,
+            public_key,
+            algorithms=[algorithm],
+        )
+        return decoded
+    except ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Expired token",
+        )
