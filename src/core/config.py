@@ -2,24 +2,20 @@ from pathlib import Path
 
 from pydantic import SecretStr, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
-import os
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            ".env",
-        ),
+        env_file=str(Path(__file__).resolve().parent.parent.parent / "docker" / ".env"),
         env_file_encoding="utf-8",
         extra="ignore",
     )
 
-    BASE_DIR: Path = Path(__file__).parent
+    BASE_DIR: Path = Path(__file__).resolve().parent.parent
 
     # AuthJWT
-    PRIVATE_KEY_PATH: Path = BASE_DIR.parent.parent / "certs" / "private.pem"
-    PUBLIC_KEY_PATH: Path = BASE_DIR.parent.parent / "certs" / "public.pem"
+    PRIVATE_KEY_PATH: Path = BASE_DIR / "certs" / "private.pem"
+    PUBLIC_KEY_PATH: Path = BASE_DIR / "certs" / "public.pem"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
 
@@ -28,7 +24,7 @@ class Settings(BaseSettings):
     POSTGRES_DB_USER: str
     POSTGRES_DB_PASSWORD: SecretStr
     POSTGRES_DB_HOST: str
-    POSTGRES_DB_PORT: int
+    POSTGRES_DB_PORT: int = 5432
     POSTGRES_DB_ECHO: bool
     POSTGRES_DB_URL: PostgresDsn | None = None
 

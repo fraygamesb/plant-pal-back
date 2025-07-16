@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from src.core.repositories.user import UserRepository
-from src.core.api.v1.schemas.user import (
+from core.repositories.user import UserRepository
+from core.api.v1.schemas.user import (
     UserCreateRequestSchema,
     UserResponseSchema,
 )
