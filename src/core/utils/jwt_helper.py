@@ -1,8 +1,8 @@
 from datetime import timedelta
 
-from src.core.config import settings
-from src.core.utils.auth import encode_jwt
-from src.core.api.v1.schemas.user import UserResponseSchema
+from core.config import settings
+from core.utils.auth import encode_jwt
+from core.api.v1.schemas.user import UserResponseSchema
 
 TOKEN_TYPE_FIELD = "type"
 ACCESS_TOKEN_TYPE = "access"

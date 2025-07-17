@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from jwt import ExpiredSignatureError
 from starlette import status
 
-from src.core.config import settings
+from core.config import settings
 
 
 def encode_jwt(

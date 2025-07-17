@@ -1,0 +1,8 @@
+services:
+  postgres:
+    extends:
+      service: postgres
+      file: docker-compose.yaml
+    volumes:
+      - ${DOCKER_DATA_PATH}/postgresql/data/:/var/lib/postgresql/data/
+      - ${DOCKER_DATA_PATH}/postgresql/log/:/var/log/postgresql/
