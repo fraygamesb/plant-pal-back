@@ -1,6 +1,14 @@
+# IDE files
 pycache/
 .idea/
-.env
 *.pyc
+
+# Virtualenv
 .venv/
-certs/
+
+# JWT
+src/certs/
+
+# Docker
+docker/data/*
+docker/.env
